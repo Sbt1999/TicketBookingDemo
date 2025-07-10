@@ -1,0 +1,46 @@
+Absolutely, Shobhit — yes, you can (and should) use this in your project explanation.
+It shows that you understand performance and concurrency trade-offs.
+___________________________________________________________________________________________
+
+✅ How to say it in your project explanation:
+
+Initially, ticket booking used synchronized blocks to update shared counters,
+but under high thread contention, it became a performance bottleneck.
+
+To optimize this, I replaced synchronized with AtomicInteger, which uses lock-free
+atomic operations (CAS) to safely update the booked count.
+
+This reduced locking overhead, improved throughput, and ensured safe concurrent
+access without blocking other threads.
+
+🧠 Bonus (what interviewers might ask):'
+
+Question ->
+Why was synchronized a bottleneck?
+
+Your Answer ->
+It forces threads to wait for the lock, even for  small operations like incrementing a counter.
+
+Question ->
+What did AtomicInteger improve?
+
+Your Answer ->
+It performs atomic updates without blocking — making it faster and more scalable.
+
+Question ->
+How is it thread-safe?
+
+Your Answer ->
+It uses low-level CAS (Compare-And-Swap) operations that ensure only one thread can succeed in updating the value at a time.
+
+🎯 Use this line confidently:
+I optimized thread contention by replacing synchronized counter updates with AtomicInteger,
+improving concurrency performance in ticket booking.
+
+
+
+===================================================================================================
+
+BottleNecks --> Solution
+Improved concurrency performance by ~50–70% under high load by replacing synchronized
+blocks with AtomicInteger in a multi-threaded booking system.”

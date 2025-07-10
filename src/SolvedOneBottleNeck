@@ -1,0 +1,53 @@
+✅ Why we are not using synchronized here
+
+🔹 1. AtomicInteger gives built-in thread-safety without locks
+AtomicInteger uses lock-free, atomic operations internally using CPU-level
+Compare-And-Swap (CAS) instructions. So:
+
+java
+Copy
+Edit
+booked.incrementAndGet();  // ✔ thread-safe, lock-free
+This is faster and more scalable than doing:
+
+java
+Copy
+Edit
+synchronized (this) {
+    booked++;
+}
+🔹 2. We don’t need to synchronize just to increment
+If you only need to safely increment a counter, AtomicInteger is perfect.
+
+Using synchronized:
+
+Has more overhead (acquire/release lock)
+-----------------------------------------------------
+Can become a bottleneck under high thread contention
+------------------------------------------------------
+Is overkill for a simple ++ operation
+
+🔹 3. We're already using a separate concurrency mechanism (Semaphore)
+In your current design:
+
+The Semaphore controls booking access (whether a seat is available)
+
+AtomicInteger is just tracking how many bookings happened
+
+So we don't need extra synchronization — the Semaphore ensures only one thread
+can decrement the available seat count.
+
+🔍 Where you would use synchronized instead:
+You’re protecting multiple fields together (e.g., available and booked)
+
+You need to implement a critical section (e.g., reading → modifying → writing multiple shared variables)
+
+You’re not using atomic or concurrent data structures (AtomicInteger, ConcurrentHashMap, etc.)
+
+✅ TL;DR
+We're not using synchronized because AtomicInteger is already thread-safe, lock-free,
+and more performant for simple counters.
+The actual seat availability is controlled by the Semaphore, and booked.incrementAndGet()
+is safe and efficient as-is.
+
+Let me know if you'd like a version that compares synchronized vs AtomicInteger in a mini benchmark!
