@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TicketService {
     private final TicketInventory inventory;
-    private final AtomicInteger booked = new AtomicInteger();
 
     public TicketService(int initialStock) {
         this.inventory = new TicketInventory(initialStock);
@@ -22,6 +21,7 @@ public class TicketService {
     }
 
     public int booked(){
-        return booked.get();
+        return inventory.getBooking();
     }
+
 }

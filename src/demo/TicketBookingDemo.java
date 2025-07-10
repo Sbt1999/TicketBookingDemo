@@ -11,7 +11,6 @@ public class TicketBookingDemo {
 
         ExecutorService pool = Executors.newFixedThreadPool(10);
 
-
         for(int i = 0; i < 15; i++){
             pool.execute(() -> {
                 boolean ok = ticketService.bookTicket();
