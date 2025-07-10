@@ -15,6 +15,7 @@ public class TicketBookingDemo {
             pool.execute(() -> {
                 boolean ok = ticketService.bookTicket();
                 System.out.println(ok ? "Booked" : "Sold-out ");
+                System.out.println("I am making changes");
             });
         }
 
